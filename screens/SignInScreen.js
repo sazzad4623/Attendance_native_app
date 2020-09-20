@@ -13,8 +13,25 @@ import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
+import { login } from "../utils/config";
 
 const SignInScreen = ({ navigation }) => {
+  const [email, setEmail] = useState();
+  const [password, setPass] = useState();
+  const handlelogin = async (e) => {
+    e.preventDefault();
+    const frmdetails = {
+      password: password,
+      email: email,
+    };
+    console.log(frmdetails);
+    const getUserInfo = await login(frmdetails);
+    if (getUserInfo === true) {
+      window.location.reload(false);
+    } else {
+      alert("invalid");
+    }
+  };
   const [data, setData] = React.useState({
     email: "",
     password: "",
@@ -80,6 +97,7 @@ const SignInScreen = ({ navigation }) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -106,6 +124,7 @@ const SignInScreen = ({ navigation }) => {
             onChangeText={(val) => handlePasswordChange(val)}
             style={styles.textInput}
             autoCapitalize="none"
+            onChange={(e) => setPass(e.target.value)}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
@@ -136,6 +155,7 @@ const SignInScreen = ({ navigation }) => {
                     color: "#fff",
                   },
                 ]}
+                onClick={handlelogin}
               >
                 Sign In
               </Text>
