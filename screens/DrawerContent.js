@@ -13,11 +13,13 @@ import {
   Switch,
 } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { AuthContext } from "../components/context";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function DrawerContent(props) {
   const paperTheme = useTheme();
+  const { signOut } = React.useContext(AuthContext);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>

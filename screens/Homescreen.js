@@ -12,10 +12,10 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
-      <Button
+      {/* <Button
         title="Go to details page"
         onPress={() => navigation.navigate("Details")}
-      />
+      /> */}
     </View>
   );
 };
