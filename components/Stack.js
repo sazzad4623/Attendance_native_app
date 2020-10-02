@@ -99,8 +99,8 @@ const StackN = () => {
       signIn: async (foundUser) => {
         // setUserToken('fgkj');
         // setIsLoading(false);
-        const userToken = String(foundUser[0].userToken);
-        const userEmail = foundUser[0].useremail;
+        const userToken = String(foundUser.token);
+        const userEmail = foundUser.email;
 
         try {
           await AsyncStorage.setItem("userToken", userToken);

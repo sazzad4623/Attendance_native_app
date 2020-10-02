@@ -1,47 +1,42 @@
 import { Base_url } from "./global";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const login = async (data) => {
   const url = Base_url + `login`;
-  // console.log("holudia pakhi")
-  // const response = await axios.post(url, data);
-  // console.log(response);
   try {
     const response = await axios.post(url, data);
-    console.log(response.data.auth[0].token, response);
     if (response.data.auth[0].token !== undefined) {
-      localStorage.setItem("token", response.data.auth[0].token);
-      localStorage.setItem(
-        "organization_id",
-        response.data.auth[0].organization_id
-      );
-      localStorage.setItem("branch_id", response.data.auth[0].branch_id);
-      localStorage.setItem(
+    await AsyncStorage.setItem('token', response.data.auth[0].token);
+    await AsyncStorage.setItem('organization_id', response.data.auth[0].organization_id+'');
+    await AsyncStorage.setItem('branch_id', response.data.auth[0].branch_id+'');
+    
+      await AsyncStorage.setItem(
         "device_location_id",
-        response.data.auth[0].device_location_id
+        response.data.auth[0].device_location_id+''
       );
-      localStorage.setItem("role", response.data.auth[0].user_role);
-      localStorage.setItem("userId", response.data.auth[0].id);
-      localStorage.setItem(
+      await AsyncStorage.setItem("role", response.data.auth[0].user_role+'');
+      await AsyncStorage.setItem("userId", response.data.auth[0].id+'');
+      await AsyncStorage.setItem(
         "device_name",
         response.data.device_name[0].device_name
       );
-      return true;
+      return response.data.auth[0];
     }
     return false;
   } catch (error) {
-    return null;
+    return false;
   }
 };
 
 export const tokenValidate = async () => {
-  const getToken = await localStorage.getItem("token");
+  const getToken = await AsyncStorage.getItem("token");
   if (getToken === null) {
     return false;
   } else {
     const url = Base_url + `tokenValidate`;
-    const token = localStorage.getItem("token");
-    const user_id = localStorage.getItem("userId");
+    const token = AsyncStorage.getItem("token");
+    const user_id = AsyncStorage.getItem("userId");
     const data = {
       token: token,
       id: user_id,
@@ -55,18 +50,18 @@ export const tokenValidate = async () => {
   }
 };
 
-export const headerConfig = () => {
+export const headerConfig = async() => {
   if (!tokenValidate) {
     return null;
   }
   const data = {
     headers: {
-      Authorization: localStorage.getItem("token"),
-      organization_id: localStorage.getItem("organization_id"),
-      branch_id: localStorage.getItem("branch_id"),
-      role: localStorage.getItem("role"),
-      userId: localStorage.getItem("userId"),
-      device_location_id: localStorage.getItem("device_location_id"),
+      Authorization: await AsyncStorage.getItem("token"),
+      organization_id: await AsyncStorage.getItem("organization_id"),
+      branch_id: await AsyncStorage.getItem("branch_id"),
+      role: await AsyncStorage.getItem("role"),
+      userId: await AsyncStorage.getItem("userId"),
+      device_location_id: await AsyncStorage.getItem("device_location_id"),
     },
   };
   return data;

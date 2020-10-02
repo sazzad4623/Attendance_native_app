@@ -15,7 +15,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { AuthContext } from "../components/context";
 import { useTheme } from "react-native-paper";
-
+import { login } from "../utils/config";
 import Users from "../model/user";
 
 const SignInScreen = ({ navigation }) => {
@@ -51,7 +51,7 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
+    if (val.trim().length >= 2) {
       setData({
         ...data,
         password: val,
@@ -88,26 +88,26 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const loginHandle = (userEmail, password) => {
-    const foundUser = Users.filter((item) => {
-      return userEmail == item.useremail && password == item.password;
-    });
-
-    if (data.useremail.length == 0 || data.password.length == 0) {
+    let data = { password: password+'', email: userEmail };
+    if (userEmail.length == 0 || password.length == 0) {
       Alert.alert(
         "Wrong Input!",
         "Useremail or password field cannot be empty.",
         [{ text: "Okay" }]
       );
       return;
+    } else {
+      login(data).then((resp) => {
+        if (resp != false) {
+          signIn(resp);
+        } else {
+          Alert.alert("Invalid User!", "Useremail or password is incorrect.", [
+            { text: "Okay" },
+          ]);
+          return;
+        }
+      });
     }
-
-    if (foundUser.length == 0) {
-      Alert.alert("Invalid User!", "Useremail or password is incorrect.", [
-        { text: "Okay" },
-      ]);
-      return;
-    }
-    signIn(foundUser);
   };
 
   return (
