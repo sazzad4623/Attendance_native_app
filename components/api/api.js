@@ -51,8 +51,14 @@ export const getDailyAttendance = async(id,datestring)=>{
   export const getpresent = async () => {
     const url = Base_url + `getPresentRfidUsersByDeviceLocation`;
     try {
-      const response = await axios.get(url, headerConfig());
-      return response.data.result;
+      
+      headerConfig().then(result=>{
+        axios.get(url, result).then(data=>{
+          console.log("dadadadada",data.data.result)
+          return data.data.result;
+        })        
+      })
+
     } catch (error) {
       return null;
     }
