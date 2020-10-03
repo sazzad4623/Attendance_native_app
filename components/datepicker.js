@@ -1,9 +1,14 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { Component } from "react";
 import DatePicker from "react-native-datepicker";
-const ProfileScreen = () => {
-  return (
-    <View style={styles.container}>
+
+export default class MyDatePicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: "2016-05-15" };
+  }
+
+  render() {
+    return (
       <DatePicker
         style={{ width: 200 }}
         date={this.state.date}
@@ -27,20 +32,9 @@ const ProfileScreen = () => {
           // ... You can check the source to find the other keys.
         }}
         onDateChange={(date) => {
-          // this.setState({ date: date });
+          this.setState({ date: date });
         }}
       />
-      <Button title="Click Here" onPress={() => alert("Button Clicked!")} />
-    </View>
-  );
-};
-
-export default ProfileScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+    );
+  }
+}
