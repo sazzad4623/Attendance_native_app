@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Avatar, Card, Title, Paragraph } from "react-native-paper";
 import {
   StyleSheet,
   Text,
@@ -9,13 +10,13 @@ import {
 } from "react-native";
 import { headerConfig } from "../utils/config";
 import axios from "axios";
-import {getpresent} from "../components/api/api"
+import { getpresent } from "../components/api/api";
 
 const HomeScreen = ({ navigation }) => {
   const Base_url = "http://139.162.14.41:5000/"; // stage server
   const [allUser, setAllUser] = useState();
   const url = Base_url + `getallRfidUsersByDeviceLocation`;
-  
+
   const [presentUser, setPresentUser] = useState();
   const present_url = Base_url + `getPresentRfidUsersByDeviceLocation`;
 
@@ -33,7 +34,6 @@ const HomeScreen = ({ navigation }) => {
     };
     getData();
   }, []);
-
 
   useEffect(() => {
     console.log("use effect present");
@@ -61,15 +61,62 @@ const HomeScreen = ({ navigation }) => {
     getData();
   }, []);
 
+  const absentUser = allUser - presentUser;
+
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      {/* <Button
-        title="Go to details page"
-        onPress={() => navigation.navigate("Details")}
-      /> */}
+    <View>
+      <Card style={styles.card1}>
+        <Card.Content>
+          <Title>All Users</Title>
+          <Paragraph>{allUser}</Paragraph>
+          <Paragraph>Number of All Users</Paragraph>
+        </Card.Content>
+      </Card>
+
+      <Card style={styles.card2}>
+        <Card.Content>
+          <Title>Present Users</Title>
+          <Paragraph>{presentUser}</Paragraph>
+          <Paragraph>Number of Present Users</Paragraph>
+        </Card.Content>
+      </Card>
+
+      <Card style={styles.card3}>
+        <Card.Content>
+          <Title>Absent Users</Title>
+          <Paragraph>{absentUser}</Paragraph>
+          <Paragraph>Number of Absent Users</Paragraph>
+        </Card.Content>
+      </Card>
     </View>
   );
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  card1: {
+    marginBottom: 15,
+    marginTop: 100,
+    marginLeft: 100,
+    width: 210,
+    borderBottomColor: "blue",
+    borderBottomWidth: 4,
+  },
+
+  card2: {
+    marginTop: 15,
+    marginLeft: 100,
+    width: 210,
+    borderBottomColor: "green",
+    borderBottomWidth: 4,
+  },
+
+  card3: {
+    marginTop: 15,
+    marginLeft: 100,
+    width: 210,
+    borderBottomColor: "red",
+    borderBottomWidth: 4,
+  },
+});

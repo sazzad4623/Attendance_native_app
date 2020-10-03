@@ -33,8 +33,8 @@ function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>Shipon</Title>
-                <Caption style={styles.caption}>@Shipon</Caption>
+                <Title style={styles.title}>User</Title>
+                <Caption style={styles.caption}>@user</Caption>
               </View>
             </View>
 
@@ -68,21 +68,21 @@ function DrawerContent(props) {
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
-              label="Profile"
+              label="Details"
               onPress={() => {
-                props.navigation.navigate("Profile");
+                props.navigation.navigate("Details");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="bookmark-outline" color={color} size={size} />
               )}
-              label="Bookmarks"
+              label="Profile"
               onPress={() => {
-                props.navigation.navigate("BookmarkScreen");
+                props.navigation.navigate("Profile");
               }}
             />
-            <DrawerItem
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="settings-outline" color={color} size={size} />
               )}
@@ -99,9 +99,9 @@ function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("SupportScreen");
               }}
-            />
+            /> */}
           </Drawer.Section>
-          <Drawer.Section title="Preferences">
+          {/* <Drawer.Section title="Preferences">
             <TouchableRipple
               onPress={() => {
                 toggleTheme();
@@ -114,7 +114,7 @@ function DrawerContent(props) {
                 </View>
               </View>
             </TouchableRipple>
-          </Drawer.Section>
+          </Drawer.Section> */}
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
