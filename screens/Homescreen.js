@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
   },
 
   card2: {
-    marginTop: 15,
     marginLeft: 100,
     width: 210,
     borderBottomColor: "green",
