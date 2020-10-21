@@ -47,7 +47,17 @@ export default class ProfileScreen extends Component {
             });
           }}
         />
-        <Button title="Click Here" onPress={() => alert("Button Clicked!")} />
+        <View>
+          {this.state.dt == null
+            ? null
+            : this.state.dt.map((users, i) => (
+                <View key={i}>
+                  <Text>name :{users.rfid_user_name}</Text>
+                  <Text>{users.created_at == null ? "absent" : "present"}</Text>
+                  <Text>user no: {users.user__id}</Text>
+                </View>
+              ))}
+        </View>
       </View>
     );
   }

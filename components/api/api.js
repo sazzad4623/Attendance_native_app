@@ -18,6 +18,7 @@ export const getDailyAttendance = async(id,datestring)=>{
   }
 
   export const getSelectedAttendance = async(id,start,end)=>{
+    console.log("hoga")
     const url = Base_url + `dateRangeReport`;
   
     try {
@@ -74,4 +75,16 @@ export const getDailyAttendance = async(id,datestring)=>{
       return null;
     }
   };
+
+  export const getRfidUsersByDeviceLocation = async(id)=>{
+    const url = Base_url + `getRUsersByDeviceLocation/${id}` ;
+  
+    try {
+      const response = await axios.get(url);
+      console.log(response.data)
+      return response.data;
+    } catch (error) {
+      return null
+    }
+  }
   
