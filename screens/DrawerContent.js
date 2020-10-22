@@ -55,7 +55,7 @@ function DrawerContent(props) {
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="home-outline" color={color} size={size} />
               )}
@@ -63,23 +63,23 @@ function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
-            />
+            /> */}
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
-              label="Details"
+              label="Daily Attendance"
               onPress={() => {
-                props.navigation.navigate("Details");
+                props.navigation.navigate("DailyAttendance");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="bookmark-outline" color={color} size={size} />
               )}
-              label="Profile"
+              label="Selected Attendance"
               onPress={() => {
-                props.navigation.navigate("Profile");
+                props.navigation.navigate("SelectedAttendance");
               }}
             />
             {/* <DrawerItem

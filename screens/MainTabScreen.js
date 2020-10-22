@@ -11,14 +11,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeScreen from "./Homescreen";
-import DetailsScreen from "./Detailscreen";
+import DailyAttendanceScreen from "./DailyAttendance";
 import Icon from "react-native-vector-icons/Ionicons";
 import ExploreScreen from "./ExploreScreen";
-import ProfileScreen from "./ProfileScreen";
+import SelectedAttendanceScreen from "./SelectedAttendance";
 
 const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
+const DailyAttendanceStack = createStackNavigator();
+const SelectedAttendanceStack = createStackNavigator();
 const ExploreStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
@@ -37,10 +37,10 @@ const MainTabScreens = () => (
       }}
     />
     <Tab.Screen
-      name="Notifications"
-      component={DetailsStackScreen}
+      name="DailyAttendance"
+      component={DailyAttendanceStackScreen}
       options={{
-        tabBarLabel: "Details",
+        tabBarLabel: "Daily Attendance",
         tabBarColor: "#1f65ff",
         tabBarIcon: ({ color }) => (
           <Icon name="ios-notifications" color={color} size={26} />
@@ -48,10 +48,10 @@ const MainTabScreens = () => (
       }}
     />
     <Tab.Screen
-      name="Profile"
-      component={ProfileStackScreen}
+      name="SelectedAttendance"
+      component={SelectedAttendanceStackScreen}
       options={{
-        tabBarLabel: "Profile",
+        tabBarLabel: "Selected",
         tabBarColor: "#694fad",
         tabBarIcon: ({ color }) => (
           <Icon name="ios-person" color={color} size={26} />
@@ -103,8 +103,8 @@ const HomeStackScreen = ({ navigation }) => (
   </HomeStack.Navigator>
 );
 
-const DetailsStackScreen = ({ navigation }) => (
-  <DetailsStack.Navigator
+const DailyAttendanceStackScreen = ({ navigation }) => (
+  <DailyAttendanceStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: "#1f65ff",
@@ -115,9 +115,9 @@ const DetailsStackScreen = ({ navigation }) => (
       },
     }}
   >
-    <DetailsStack.Screen
-      name="Details"
-      component={DetailsScreen}
+    <DailyAttendanceStack.Screen
+      name="Daily Attendance"
+      component={DailyAttendanceScreen}
       options={{
         headerLeft: () => (
           <Icon.Button
@@ -129,11 +129,11 @@ const DetailsStackScreen = ({ navigation }) => (
         ),
       }}
     />
-  </DetailsStack.Navigator>
+  </DailyAttendanceStack.Navigator>
 );
 
-const ProfileStackScreen = ({ navigation }) => (
-  <ProfileStack.Navigator
+const SelectedAttendanceStackScreen = ({ navigation }) => (
+  <SelectedAttendanceStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: "#694fad",
@@ -144,11 +144,11 @@ const ProfileStackScreen = ({ navigation }) => (
       },
     }}
   >
-    <ProfileStack.Screen
-      name="Profile"
-      component={ProfileScreen}
+    <SelectedAttendanceStack.Screen
+      name="Selected Attendance"
+      component={SelectedAttendanceScreen}
       options={{
-        title: "Profile",
+        title: "Selected Attendance",
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"
@@ -159,7 +159,7 @@ const ProfileStackScreen = ({ navigation }) => (
         ),
       }}
     />
-  </ProfileStack.Navigator>
+  </SelectedAttendanceStack.Navigator>
 );
 
 const ExploreStackScreen = ({ navigation }) => (

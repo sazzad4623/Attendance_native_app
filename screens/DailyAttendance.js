@@ -4,7 +4,7 @@ import DatePicker from "react-native-datepicker";
 import { getDailyAttendance } from "../components/api/api";
 import AsyncStorage from "@react-native-community/async-storage";
 import { parsingServerDate } from "../utils/config";
-export default class ProfileScreen extends Component {
+export default class DailyAttendanceScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { date: "2020-05-15", dt: null };
