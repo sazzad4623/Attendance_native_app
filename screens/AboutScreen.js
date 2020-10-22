@@ -4,8 +4,10 @@ import { View, Text, Button, StyleSheet } from "react-native";
 const AboutScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Settings Screen</Text>
-      <Button title="Click Here" onPress={() => alert("Button Clicked!")} />
+      <Text>Developed By:</Text>
+      <Text>Publish Date:</Text>
+      
+      
     </View>
   );
 };

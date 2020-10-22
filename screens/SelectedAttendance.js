@@ -7,6 +7,7 @@ import {
 } from "../components/api/api";
 import DatePicker from "react-native-datepicker";
 import { DatePipe } from "../utils/global";
+import { DataTable } from 'react-native-paper';
 export default class SelectedAttendanceScreen extends Component {
   constructor(props) {
     super(props);
@@ -122,7 +123,7 @@ export default class SelectedAttendanceScreen extends Component {
           Search
         </Text> */}
 
-      <Button  title="Press Me"    onPress={async () => {
+      <Button  title="Click"    onPress={async () => {
             if (this.state.id == null) {
               Alert.alert("Invalid User!", "Select an User", [
                 { text: "Okay" },
@@ -138,12 +139,27 @@ export default class SelectedAttendanceScreen extends Component {
               this.setState({ data: searched_data });
             }
           }}></Button>
-        <View>
+        <View style={styles.container2}>
+        <DataTable >
+          <DataTable.Header>
+      <DataTable.Title style={styles.container3}>Name</DataTable.Title>
+      <DataTable.Title style={styles.container3}>User No</DataTable.Title>
+      <DataTable.Title style={styles.container3}>Status</DataTable.Title>
+      <DataTable.Title style={styles.container3}>Enter Time</DataTable.Title>
+      <DataTable.Title style={styles.container3}>Date</DataTable.Title>
+    </DataTable.Header>
           {this.state.data == null
             ? null
             : this.state.data.map((users, i) => (
                 <View key={i}>
-                  <Text>name :{users.rfid_user_name}</Text>
+                                    <DataTable.Row>
+      <DataTable.Cell style={styles.container3}>{users.rfid_user_name}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3} >{users.user__id}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3}>{users.created_at == null ? "absent" : "present"}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3} >{users.inTime}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3} >{DatePipe(users.created_at)}</DataTable.Cell>
+    </DataTable.Row>
+                  {/* <Text>name :{users.rfid_user_name}</Text>
                   <Text>{users.created_at == null ? "Status: absent" : "Status: present"}</Text>
                   <Text>user no: {users.user__id}</Text>
                   <Text>Enter time:{users.inTime}</Text>
@@ -152,9 +168,10 @@ export default class SelectedAttendanceScreen extends Component {
                     <Text>Status: Present</Text>
                   ) : (
                     <Text>Status: Absent</Text>
-                  )}
+                  )} */}
                 </View>
               ))}
+              </DataTable>
         </View>
       </View>
     );
@@ -165,6 +182,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 10
   },
+  container2:{
+    width: 400,
+  
+   
+  },
+  container3:{
+    alignItems: "center",
+    justifyContent: "center",
+  
+   
+  }
 });
