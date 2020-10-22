@@ -17,13 +17,14 @@ export const getDailyAttendance = async(id,datestring)=>{
     }
   }
 
-  export const getSelectedAttendance = async(id,start,end)=>{
+  export const getSelectedUserAttendance = async(device_id,id,start,end)=>{
     console.log("hoga")
-    const url = Base_url + `dateRangeReport`;
+    const url = Base_url + `userReport`;
   
     try {
       const response = await axios.post(url, {
-        device_location_id: id,
+        device_location_id: device_id,
+        rfid_user_id : id,
         start: start,
         end: end
       });

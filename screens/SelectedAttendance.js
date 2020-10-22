@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, Alert, Picker } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
   getRfidUsersByDeviceLocation,
-  getSelectedAttendance,
+  getSelectedUserAttendance,
 } from "../components/api/api";
 import DatePicker from "react-native-datepicker";
 import { DatePipe } from "../utils/global";
@@ -16,12 +16,14 @@ export default class SelectedAttendanceScreen extends Component {
       data: null,
       users: null,
       id: null,
+      device_id: null
     };
   }
   async componentDidMount() {
     let id = await AsyncStorage.getItem("device_location_id");
     let names = await getRfidUsersByDeviceLocation(id);
     this.setState({ users: names });
+    this.setState({device_id: id})
   }
 
   render() {
@@ -127,7 +129,8 @@ export default class SelectedAttendanceScreen extends Component {
               ]);
               return;
             } else {
-              let searched_data = await getSelectedAttendance(
+              let searched_data = await getSelectedUserAttendance(
+                this.state.device_id,
                 this.state.id,
                 this.state.start_date,
                 this.state.end_date
@@ -141,14 +144,14 @@ export default class SelectedAttendanceScreen extends Component {
             : this.state.data.map((users, i) => (
                 <View key={i}>
                   <Text>name :{users.rfid_user_name}</Text>
-                  <Text>{users.created_at == null ? "absent" : "present"}</Text>
+                  <Text>{users.created_at == null ? "Status: absent" : "Status: present"}</Text>
                   <Text>user no: {users.user__id}</Text>
-                  <Text>{users.inTime}</Text>
-                  <Text>{DatePipe(users.created_at)}</Text>
+                  <Text>Enter time:{users.inTime}</Text>
+                  <Text>Date: {DatePipe(users.created_at)}</Text>
                   {users.created_at ? (
-                    <Text>Present</Text>
+                    <Text>Status: Present</Text>
                   ) : (
-                    <Text>Absent</Text>
+                    <Text>Status: Absent</Text>
                   )}
                 </View>
               ))}
