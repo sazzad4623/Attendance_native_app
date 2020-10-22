@@ -13,13 +13,13 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import HomeScreen from "./Homescreen";
 import DailyAttendanceScreen from "./DailyAttendance";
 import Icon from "react-native-vector-icons/Ionicons";
-import ExploreScreen from "./ExploreScreen";
+import AboutScreen from "./AboutScreen";
 import SelectedAttendanceScreen from "./SelectedAttendance";
 
 const HomeStack = createStackNavigator();
 const DailyAttendanceStack = createStackNavigator();
 const SelectedAttendanceStack = createStackNavigator();
-const ExploreStack = createStackNavigator();
+const AboutStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -60,9 +60,9 @@ const MainTabScreens = () => (
     />
     <Tab.Screen
       name="About"
-      component={ExploreStackScreen}
+      component={AboutStackScreen}
       options={{
-        tabBarLabel: "Explore",
+        tabBarLabel: "About",
         tabBarColor: "#d02860",
         tabBarIcon: ({ color }) => (
           <Icon name="ios-aperture" color={color} size={26} />
@@ -162,8 +162,8 @@ const SelectedAttendanceStackScreen = ({ navigation }) => (
   </SelectedAttendanceStack.Navigator>
 );
 
-const ExploreStackScreen = ({ navigation }) => (
-  <ExploreStack.Navigator
+const AboutStackScreen = ({ navigation }) => (
+  <AboutStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: "#d02860",
@@ -174,9 +174,9 @@ const ExploreStackScreen = ({ navigation }) => (
       },
     }}
   >
-    <ExploreStack.Screen
+    <AboutStack.Screen
       name="About"
-      component={ExploreScreen}
+      component={AboutScreen}
       options={{
         title: "About",
         headerLeft: () => (
@@ -189,5 +189,5 @@ const ExploreStackScreen = ({ navigation }) => (
         ),
       }}
     />
-  </ExploreStack.Navigator>
+  </AboutStack.Navigator>
 );

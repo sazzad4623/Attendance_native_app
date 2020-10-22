@@ -4,6 +4,7 @@ import DatePicker from "react-native-datepicker";
 import { getDailyAttendance } from "../components/api/api";
 import AsyncStorage from "@react-native-community/async-storage";
 import { parsingServerDate } from "../utils/config";
+import { DataTable } from 'react-native-paper';
 export default class DailyAttendanceScreen extends Component {
   constructor(props) {
     super(props);
@@ -47,16 +48,34 @@ export default class DailyAttendanceScreen extends Component {
             });
           }}
         />
-        <View>
+        <View style={styles.container2}>
+          <DataTable >
+          <DataTable.Header>
+      <DataTable.Title style={styles.container3}>Name</DataTable.Title>
+      <DataTable.Title style={styles.container3}>User No</DataTable.Title>
+      <DataTable.Title style={styles.container3}>Status</DataTable.Title>
+    </DataTable.Header>
           {this.state.dt == null
             ? null
             : this.state.dt.map((users, i) => (
                 <View key={i}>
+                  <DataTable.Row>
+      <DataTable.Cell style={styles.container3}>{users.rfid_user_name}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3} >{users.user__id}</DataTable.Cell>
+      <DataTable.Cell style={styles.container3}>{users.created_at == null ? "absent" : "present"}</DataTable.Cell>
+    </DataTable.Row>
+ 
+{/*       
                   <Text>name :{users.rfid_user_name}</Text>
                   <Text>{users.created_at == null ? "absent" : "present"}</Text>
-                  <Text>user no: {users.user__id}</Text>
+                  <Text>user no: {users.user__id}</Text> */}
                 </View>
               ))}
+          </DataTable>
+       
+       
+         
+        
         </View>
       </View>
     );
@@ -69,4 +88,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  container2:{
+    width: 320,
+  
+   
+  },
+  container3:{
+    alignItems: "center",
+    justifyContent: "center",
+  
+   
+  }
 });

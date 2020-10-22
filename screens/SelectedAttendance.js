@@ -100,7 +100,7 @@ export default class SelectedAttendanceScreen extends Component {
           </Picker>
         )}
 
-        <Text
+        {/* <Text
           onPress={async () => {
             if (this.state.id == null) {
               Alert.alert("Invalid User!", "Select an User", [
@@ -118,7 +118,23 @@ export default class SelectedAttendanceScreen extends Component {
           }}
         >
           Search
-        </Text>
+        </Text> */}
+
+      <Button  title="Press Me"    onPress={async () => {
+            if (this.state.id == null) {
+              Alert.alert("Invalid User!", "Select an User", [
+                { text: "Okay" },
+              ]);
+              return;
+            } else {
+              let searched_data = await getSelectedAttendance(
+                this.state.id,
+                this.state.start_date,
+                this.state.end_date
+              );
+              this.setState({ data: searched_data });
+            }
+          }}></Button>
         <View>
           {this.state.data == null
             ? null
