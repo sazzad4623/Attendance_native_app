@@ -44,7 +44,7 @@ const MainTabScreens = () => (
         tabBarLabel: "Daily Attendance",
         tabBarColor: "#1f65ff",
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-notifications" color={color} size={26} />
+          <Icon name="ios-calendar" color={color} size={26} />
         ),
       }}
     />
@@ -66,7 +66,7 @@ const MainTabScreens = () => (
         tabBarLabel: "About",
         tabBarColor: "#d02860",
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-aperture" color={color} size={26} />
+          <Icon name="ios-code-working" color={color} size={26} />
         ),
       }}
     />

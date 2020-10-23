@@ -17,6 +17,7 @@ import { AuthContext } from "../components/context";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+
 function DrawerContent(props) {
   const paperTheme = useTheme();
   const { signOut } = React.useContext(AuthContext);
@@ -66,7 +67,7 @@ function DrawerContent(props) {
             /> */}
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="account-outline" color={color} size={size} />
+                <Icon name="calendar-outline" color={color} size={size} />
               )}
               label="Daily Attendance"
               onPress={() => {
@@ -75,7 +76,7 @@ function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="bookmark-outline" color={color} size={size} />
+                <Icon name="account-outline" color={color} size={size} />
               )}
               label="Selected Attendance"
               onPress={() => {

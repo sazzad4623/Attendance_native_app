@@ -41,7 +41,7 @@ export default class SelectedAttendanceScreen extends Component {
     console.log("final data", this.state.data);
     return (
       <View style={styles.container}>
-        <Text> start_date</Text>
+       <Text style={{marginBottom:2}}> Start Date</Text>
         <DatePicker
           style={{ width: 200 }}
           date={this.state.start_date}
@@ -67,8 +67,8 @@ export default class SelectedAttendanceScreen extends Component {
           onDateChange={async (date) => {
             this.setState({ start_date: date });
           }}
-        />
-        <Text> end_date</Text>
+        /> 
+        <Text style={{marginTop: 10, marginBottom:2}}> End Date</Text>
 
         <DatePicker
           style={{ width: 200 }}
@@ -114,6 +114,7 @@ export default class SelectedAttendanceScreen extends Component {
         )}
 
         <Button
+        
           title="Search"
           onPress={async () => {
             if (this.state.id == null) {
@@ -196,4 +197,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  container4:{
+    flex: 4,
+        flexDirection: 'row',
+        justifyContent: 'center'
+  }
 });

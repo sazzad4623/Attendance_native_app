@@ -53,6 +53,7 @@ export default class DailyAttendanceScreen extends Component {
             });
           }}
         />
+        <View style={{marginLeft:43, marginTop:2}}><Text>pick a date to see the report</Text></View>
         <View style={styles.container2}>
           <DataTable>
             {this.state.dt == null ? null : (
@@ -105,4 +106,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
 });
