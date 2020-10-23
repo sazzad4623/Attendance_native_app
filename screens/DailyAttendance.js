@@ -4,11 +4,16 @@ import DatePicker from "react-native-datepicker";
 import { getDailyAttendance } from "../components/api/api";
 import AsyncStorage from "@react-native-community/async-storage";
 import { parsingServerDate } from "../utils/config";
-import { DataTable } from 'react-native-paper';
+import { DataTable } from "react-native-paper";
 export default class DailyAttendanceScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { date: "2020-05-15", dt: null };
+    this.state = {
+      date: `${new Date().getFullYear()}-${
+        new Date().getMonth() + 1
+      }-${new Date().getDate()}`,
+      dt: null,
+    };
   }
 
   render() {
@@ -49,33 +54,38 @@ export default class DailyAttendanceScreen extends Component {
           }}
         />
         <View style={styles.container2}>
-          <DataTable >
-          <DataTable.Header>
-      <DataTable.Title style={styles.container3}>Name</DataTable.Title>
-      <DataTable.Title style={styles.container3}>User No</DataTable.Title>
-      <DataTable.Title style={styles.container3}>Status</DataTable.Title>
-    </DataTable.Header>
-          {this.state.dt == null
-            ? null
-            : this.state.dt.map((users, i) => (
-                <View key={i}>
-                  <DataTable.Row>
-      <DataTable.Cell style={styles.container3}>{users.rfid_user_name}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3} >{users.user__id}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3}>{users.created_at == null ? "absent" : "present"}</DataTable.Cell>
-    </DataTable.Row>
- 
-{/*       
-                  <Text>name :{users.rfid_user_name}</Text>
-                  <Text>{users.created_at == null ? "absent" : "present"}</Text>
-                  <Text>user no: {users.user__id}</Text> */}
-                </View>
-              ))}
+          <DataTable>
+            {this.state.dt == null ? null : (
+              <DataTable.Header>
+                <DataTable.Title style={styles.container3}>
+                  Name
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  User No
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  Status
+                </DataTable.Title>
+              </DataTable.Header>
+            )}
+            {this.state.dt == null
+              ? null
+              : this.state.dt.map((users, i) => (
+                  <View key={i}>
+                    <DataTable.Row>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.rfid_user_name}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.user__id}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.created_at == null ? "absent" : "present"}
+                      </DataTable.Cell>
+                    </DataTable.Row>
+                  </View>
+                ))}
           </DataTable>
-       
-       
-         
-        
         </View>
       </View>
     );
@@ -86,17 +96,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginTop: 10
+    marginTop: 10,
   },
-  container2:{
+  container2: {
     width: 320,
-  
-   
   },
-  container3:{
+  container3: {
     alignItems: "center",
     justifyContent: "center",
-  
-   
-  }
+  },
 });

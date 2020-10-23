@@ -4,8 +4,8 @@ import { View, Text, Button, StyleSheet } from "react-native";
 const AboutScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Developed By:</Text>
-      <Text>Publish Date:</Text>
+      <Text>Developed By: IoT Team</Text>
+  <Text>Publish Date: {`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`}</Text>
       
       
     </View>

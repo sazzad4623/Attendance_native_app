@@ -7,24 +7,34 @@ import {
 } from "../components/api/api";
 import DatePicker from "react-native-datepicker";
 import { DatePipe } from "../utils/global";
-import { DataTable } from 'react-native-paper';
+import { DataTable } from "react-native-paper";
 export default class SelectedAttendanceScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      start_date: "2020-05-15",
-      end_date: "2020-05-15",
+      start_date: `${new Date().getFullYear()}-${
+        new Date().getMonth() + 1
+      }-${new Date().getDate()}`,
+      end_date: `${new Date().getFullYear()}-${
+        new Date().getMonth() + 1
+      }-${new Date().getDate()}`,
       data: null,
       users: null,
       id: null,
-      device_id: null
+      device_id: null,
     };
   }
   async componentDidMount() {
     let id = await AsyncStorage.getItem("device_location_id");
     let names = await getRfidUsersByDeviceLocation(id);
-    this.setState({ users: names });
-    this.setState({device_id: id})
+    console.log("name error hdfhsdf", names);
+    if (names.sql) {
+      this.setState({ users: null });
+      this.setState({ device_id: id });
+    } else {
+      this.setState({ users: names });
+      this.setState({ device_id: id });
+    }
   }
 
   render() {
@@ -87,7 +97,7 @@ export default class SelectedAttendanceScreen extends Component {
           }}
         />
 
-        {this.state.users == null ? null : (
+        {this.state.users == null || this.state.users == undefined ? null : (
           <Picker
             selectedValue={this.state.id}
             style={{ height: 50, width: 150 }}
@@ -96,34 +106,16 @@ export default class SelectedAttendanceScreen extends Component {
               this.setState({ id: itemValue });
             }}
           >
-            <Picker.Item label="Select" value="" />
+            <Picker.Item label="Select User" value="" />
             {this.state.users.map((user, i) => (
               <Picker.Item label={user.rfid_user_name} value={user.id} />
             ))}
           </Picker>
         )}
 
-        {/* <Text
+        <Button
+          title="Search"
           onPress={async () => {
-            if (this.state.id == null) {
-              Alert.alert("Invalid User!", "Select an User", [
-                { text: "Okay" },
-              ]);
-              return;
-            } else {
-              let searched_data = await getSelectedAttendance(
-                this.state.id,
-                this.state.start_date,
-                this.state.end_date
-              );
-              this.setState({ data: searched_data });
-            }
-          }}
-        >
-          Search
-        </Text> */}
-
-      <Button  title="Click"    onPress={async () => {
             if (this.state.id == null) {
               Alert.alert("Invalid User!", "Select an User", [
                 { text: "Okay" },
@@ -138,40 +130,53 @@ export default class SelectedAttendanceScreen extends Component {
               );
               this.setState({ data: searched_data });
             }
-          }}></Button>
+          }}
+        ></Button>
         <View style={styles.container2}>
-        <DataTable >
-          <DataTable.Header>
-      <DataTable.Title style={styles.container3}>Name</DataTable.Title>
-      <DataTable.Title style={styles.container3}>User No</DataTable.Title>
-      <DataTable.Title style={styles.container3}>Status</DataTable.Title>
-      <DataTable.Title style={styles.container3}>Enter Time</DataTable.Title>
-      <DataTable.Title style={styles.container3}>Date</DataTable.Title>
-    </DataTable.Header>
-          {this.state.data == null
-            ? null
-            : this.state.data.map((users, i) => (
-                <View key={i}>
-                                    <DataTable.Row>
-      <DataTable.Cell style={styles.container3}>{users.rfid_user_name}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3} >{users.user__id}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3}>{users.created_at == null ? "absent" : "present"}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3} >{users.inTime}</DataTable.Cell>
-      <DataTable.Cell style={styles.container3} >{DatePipe(users.created_at)}</DataTable.Cell>
-    </DataTable.Row>
-                  {/* <Text>name :{users.rfid_user_name}</Text>
-                  <Text>{users.created_at == null ? "Status: absent" : "Status: present"}</Text>
-                  <Text>user no: {users.user__id}</Text>
-                  <Text>Enter time:{users.inTime}</Text>
-                  <Text>Date: {DatePipe(users.created_at)}</Text>
-                  {users.created_at ? (
-                    <Text>Status: Present</Text>
-                  ) : (
-                    <Text>Status: Absent</Text>
-                  )} */}
-                </View>
-              ))}
-              </DataTable>
+          <DataTable>
+            {this.state.data == null ? null : (
+              <DataTable.Header>
+                <DataTable.Title style={styles.container3}>
+                  Name
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  User No
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  Status
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  Enter Time
+                </DataTable.Title>
+                <DataTable.Title style={styles.container3}>
+                  Date
+                </DataTable.Title>
+              </DataTable.Header>
+            )}
+            {this.state.data == null
+              ? null
+              : this.state.data.map((users, i) => (
+                  <View key={i}>
+                    <DataTable.Row>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.rfid_user_name}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.user__id}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.created_at == null ? "absent" : "present"}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {users.inTime}
+                      </DataTable.Cell>
+                      <DataTable.Cell style={styles.container3}>
+                        {DatePipe(users.created_at)}
+                      </DataTable.Cell>
+                    </DataTable.Row>
+                  </View>
+                ))}
+          </DataTable>
         </View>
       </View>
     );
@@ -182,17 +187,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginTop: 10
+    marginTop: 10,
   },
-  container2:{
+  container2: {
     width: 400,
-  
-   
   },
-  container3:{
+  container3: {
     alignItems: "center",
     justifyContent: "center",
-  
-   
-  }
+  },
 });
